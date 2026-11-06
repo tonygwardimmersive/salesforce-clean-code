@@ -4,100 +4,30 @@ Clean code, TDD and design principles for Apex and LWC. Complements
 `salesforce-build-dev`: build-dev generates the code; clean-code guides how to write
 and review it well.
 
-## Install as a Claude Code plugin
+## Install
 
-This repository is a Claude Code plugin and its own single-plugin marketplace
-(`tonygward-salesforce`):
-
-```
-/plugin marketplace add tonygwardimmersive/salesforce-clean-code
-/plugin install salesforce-clean-code@tonygward-salesforce
-```
-
-In an interactive session, `/plugin install` asks which scope to install into. From
-the terminal, pass `--scope` (default `user`):
-
-| Scope | Who gets it | Saved in |
-|---|---|---|
-| `user` | Only you, in every project | `~/.claude/settings.json` |
-| `project` | Everyone who clones the repo | `.claude/settings.json` (commit it) |
-| `local` | Only you, only in this repo | `.claude/settings.local.json` (git-ignored) |
-
-**Per user** – available to you in every project:
+This repo is a Claude Code plugin that bundles all 15 skills below, and its own
+marketplace (`tonygward-salesforce`):
 
 ```bash
 claude plugin marketplace add tonygwardimmersive/salesforce-clean-code
-claude plugin install salesforce-clean-code@tonygward-salesforce
+claude plugin install salesforce-clean-code@tonygward-salesforce --scope user
 ```
 
-**Per project** – shared with your team. Run inside the project, then commit
-`.claude/settings.json`:
+Choose the scope:
 
-```bash
-claude plugin marketplace add tonygwardimmersive/salesforce-clean-code --scope project
-claude plugin install salesforce-clean-code@tonygward-salesforce --scope project
-```
+- `user` (default): just you, in every project.
+- `project`: everyone working in the repo. Commit `.claude/settings.json`.
+- `local`: just you, in this repo only.
 
-Teammates are prompted to trust the marketplace and install the plugin when they
-open the project. You can also add the same settings by hand:
-
-```json
-{
-  "extraKnownMarketplaces": {
-    "tonygward-salesforce": {
-      "source": { "source": "github", "repo": "tonygwardimmersive/salesforce-clean-code" }
-    }
-  },
-  "enabledPlugins": {
-    "salesforce-clean-code@tonygward-salesforce": true
-  }
-}
-```
-
-**Local** – just you, just this project, without touching shared settings:
-
-```bash
-claude plugin marketplace add tonygwardimmersive/salesforce-clean-code --scope local
-claude plugin install salesforce-clean-code@tonygward-salesforce --scope local
-```
-
-To remove it, run `claude plugin uninstall salesforce-clean-code@tonygward-salesforce --scope <scope>`
-with the scope you installed into.
-
-If your organisation's marketplace already lists this plugin, skip the
-`marketplace add` step and install `salesforce-clean-code@<that-marketplace>`.
-
-### Alternative: install with `npx skills`
-
-```bash
-npx skills add tonygwardimmersive/salesforce-clean-code --yes
-```
+Pass the same `--scope` to `marketplace add`. In a session, `/plugin` does the same
+interactively. Without Claude Code plugins, use `npx skills add tonygwardimmersive/salesforce-clean-code`.
 
 ## Usage
 
-Installed as a plugin, each skill is namespaced under the plugin name. Invoke one
-directly, or just describe the task and Claude picks the matching skill:
-
-```
-/salesforce-clean-code:salesforce-naming-things
-/salesforce-clean-code:salesforce-code-comments
-/salesforce-clean-code:salesforce-writing-tests
-/salesforce-clean-code:salesforce-tests-as-specification
-/salesforce-clean-code:salesforce-tdd-workflow
-/salesforce-clean-code:generating-apex-test-httpmocks
-/salesforce-clean-code:clean-salesforce-functions
-/salesforce-clean-code:clean-apex-error-handling
-/salesforce-clean-code:reviewing-apex
-/salesforce-clean-code:salesforce-connascence
-/salesforce-clean-code:salesforce-solid-design
-/salesforce-clean-code:salesforce-design-patterns
-/salesforce-clean-code:salesforce-primitive-obsession
-/salesforce-clean-code:salesforce-law-of-demeter
-/salesforce-clean-code:lwc-component-design
-```
-
-Installed with `npx skills`, the same skills are invoked without the prefix
-(for example `/reviewing-apex`).
+Describe the task and Claude picks the right skill, or invoke one directly, e.g.
+`/salesforce-clean-code:reviewing-apex`. Skills installed with `npx skills` have no
+prefix (`/reviewing-apex`).
 
 ## Skills
 
@@ -192,29 +122,14 @@ are generation and platform-standards review.
 
 ## Referencing from another marketplace
 
-Another marketplace can list this plugin with a single entry in its
-`.claude-plugin/marketplace.json` `plugins` array, without copying any files:
+Add this entry to another marketplace's `plugins` array. To pin a version, add `ref`
+(tag or branch) or `sha` to `source`.
 
 ```json
 {
   "name": "salesforce-clean-code",
-  "source": {
-    "source": "github",
-    "repo": "tonygwardimmersive/salesforce-clean-code"
-  },
+  "source": { "source": "github", "repo": "tonygwardimmersive/salesforce-clean-code" },
   "description": "Clean code, TDD and design principles for Apex and LWC. Complements salesforce-build-dev: build-dev generates the code; clean-code guides how to write and review it well."
-}
-```
-
-To pin a release, add `ref` (a branch or tag) and/or `sha` (a full 40-character
-commit SHA) to the `source` object. When both are set, `sha` is checked out:
-
-```json
-"source": {
-  "source": "github",
-  "repo": "tonygwardimmersive/salesforce-clean-code",
-  "ref": "v1.0.0",
-  "sha": "<40-character commit sha>"
 }
 ```
 
