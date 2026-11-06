@@ -8,7 +8,7 @@ metadata:
 
 # Salesforce Connascence
 
-Two components are **connascent** if changing one forces a change in the other to keep the system correct. Connascence is a vocabulary for coupling that lets you *name* a dependency, *rank* how fragile it is, and *aim* a refactor — always toward a weaker form. It underpins many Clean Code rules: an argument object (`clean-salesforce-functions`) is just converting connascence of *position* into connascence of *name*; replacing a magic picklist string with a constant converts connascence of *meaning* into connascence of *name*.
+Two components are **connascent** if changing one forces a change in the other to keep the system correct. Connascence is a vocabulary for coupling that lets you *name* a dependency, *rank* how fragile it is, and *aim* a refactor — always toward a weaker form. It underpins many Clean Code rules: an argument object ([`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md)) is just converting connascence of *position* into connascence of *name*; replacing a magic picklist string with a constant converts connascence of *meaning* into connascence of *name*.
 
 ---
 
@@ -84,9 +84,9 @@ for (Account a : Trigger.new) { a.Rating = 'Hot'; }
 
 ## How this relates to the other skills
 
-- **`reviewing-apex`** lists coupling as one smell category; this skill is the strength-ranked lens for *prioritising* those findings (lead with the strong, non-local, high-degree ones).
-- **`clean-salesforce-functions`** — argument objects and DRY are CoP→CoN and CoA reductions; flag arguments are CoM.
-- **`salesforce-naming-things`** — CoN is the destination of almost every conversion, so good names are what make weak coupling readable.
+- **[`reviewing-apex`](../reviewing-apex/SKILL.md)** lists coupling as one smell category; this skill is the strength-ranked lens for *prioritising* those findings (lead with the strong, non-local, high-degree ones).
+- **[`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md)** — argument objects and DRY are CoP→CoN and CoA reductions; flag arguments are CoM.
+- **[`salesforce-naming-things`](../salesforce-naming-things/SKILL.md)** — CoN is the destination of almost every conversion, so good names are what make weak coupling readable.
 
 ---
 

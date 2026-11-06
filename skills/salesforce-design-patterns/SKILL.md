@@ -8,9 +8,9 @@ metadata:
 
 # Salesforce Design Patterns
 
-Patterns are not a goal — they are names for shapes that *emerge* when you let behaviour vary by composition instead of by editing existing code. This skill covers the two that recur most in Salesforce business logic — **Strategy** (swap one behaviour) and **Decorator** (stack many behaviours) — both expressions of the same rule: **favour composition over inheritance.** Both realise the Open/Closed Principle (`salesforce-solid-design`): you extend the system by adding a class, never by reopening a tested one. The Apex examples carry the patterns; the **LWC (JavaScript) Notes** section shows the same shapes in component code, where Strategy lives in a config map and composition is the framework's native idiom (slots and child components).
+Patterns are not a goal — they are names for shapes that *emerge* when you let behaviour vary by composition instead of by editing existing code. This skill covers the two that recur most in Salesforce business logic — **Strategy** (swap one behaviour) and **Decorator** (stack many behaviours) — both expressions of the same rule: **favour composition over inheritance.** Both realise the Open/Closed Principle ([`salesforce-solid-design`](../salesforce-solid-design/SKILL.md)): you extend the system by adding a class, never by reopening a tested one. The Apex examples carry the patterns; the **LWC (JavaScript) Notes** section shows the same shapes in component code, where Strategy lives in a config map and composition is the framework's native idiom (slots and child components).
 
-Let patterns arrive through refactoring. The first `if` is not a Strategy and a single wrapper is not a Decorator (`clean-salesforce-functions` DRY-after-Rule-of-Three; `reviewing-apex` speculative generality). Reach for them when the *combinations* or *variants* start to multiply.
+Let patterns arrive through refactoring. The first `if` is not a Strategy and a single wrapper is not a Decorator ([`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md) DRY-after-Rule-of-Three; [`reviewing-apex`](../reviewing-apex/SKILL.md) speculative generality). Reach for them when the *combinations* or *variants* start to multiply.
 
 ---
 
@@ -21,7 +21,7 @@ Inheritance fixes behaviour at compile time and forces every combination into it
 Prefer composition when you see:
 - A subclass hierarchy growing to cover *combinations* of options.
 - A base class you must edit every time a new variant appears.
-- Subclasses that override to *remove* behaviour (a Liskov violation — `salesforce-solid-design`).
+- Subclasses that override to *remove* behaviour (a Liskov violation — [`salesforce-solid-design`](../salesforce-solid-design/SKILL.md)).
 
 Both patterns below replace an inheritance tree with objects that hold a reference to a collaborator.
 
@@ -91,9 +91,9 @@ order.description();    // 'Espresso, Mocha, Whip'
 
 **Apex uses that pay off:**
 - **Cross-cutting concerns on a service.** Wrap a `LeadService` in a `LoggingLeadService` or `RetryingLeadService` that implements the same interface, adds logging/retry, then delegates. The core service stays untouched and untested-around.
-- **Layered `HttpCalloutMock`.** A decorator mock can add latency, count invocations, or inject a failure on the Nth call while delegating to a base mock (`generating-apex-test-httpmocks`).
+- **Layered `HttpCalloutMock`.** A decorator mock can add latency, count invocations, or inject a failure on the Nth call while delegating to a base mock ([`generating-apex-test-httpmocks`](../generating-apex-test-httpmocks/SKILL.md)).
 
-A decorator must stay **substitutable** for what it wraps (`salesforce-solid-design`, LSP) — same contract, additive behaviour only. Don't let a decorator throw where the component would not.
+A decorator must stay **substitutable** for what it wraps ([`salesforce-solid-design`](../salesforce-solid-design/SKILL.md), LSP) — same contract, additive behaviour only. Don't let a decorator throw where the component would not.
 
 ### 3. Don't force the pattern
 
@@ -102,7 +102,7 @@ A pattern earns its keep only when variation is real. Indicators you do **not** 
 - A single conditional that has never changed → leave the `if`.
 - A wrapper used in exactly one place that will never stack → inline it.
 
-Introducing Strategy/Decorator prematurely adds an interface and indirection (stronger *connascence of name* spread wider — `salesforce-connascence`) for no extension benefit.
+Introducing Strategy/Decorator prematurely adds an interface and indirection (stronger *connascence of name* spread wider — [`salesforce-connascence`](../salesforce-connascence/SKILL.md)) for no extension benefit.
 
 ---
 
@@ -150,7 +150,7 @@ For behaviour an admin should control, the strategy key can come from **Custom M
 - **Compose with child components and slots, not inheritance.** LWC has no useful component inheritance; you assemble UI by nesting components and projecting markup through `<slot>`. A `c-card` that exposes a default slot plus `header`/`actions` slots is the Decorator idea expressed in markup — callers stack content and behaviour around a core without editing it.
 - **Decorator for wrapping behaviour.** The same wrap-and-delegate shape applies to plain JS: wrap an Apex-call function in a `withRetry(fn)` or `withToast(fn)` higher-order function that adds the concern and delegates. Each wrapper keeps the same call signature (substitutable) and adds behaviour only.
 - **Prefer functions/modules over class hierarchies.** Where Apex reaches for an `interface`, LWC JS usually reaches for a function, a module export, or a passed-in callback. Same Open/Closed payoff — extend by adding a function, not editing a tested one — with less ceremony.
-- **Don't force it.** A single `if` that has never changed, or one component variant, is not a pattern. Reach for the map or the slot only when variants/combinations actually multiply (`reviewing-apex` speculative generality).
+- **Don't force it.** A single `if` that has never changed, or one component variant, is not a pattern. Reach for the map or the slot only when variants/combinations actually multiply ([`reviewing-apex`](../reviewing-apex/SKILL.md) speculative generality).
 
 ---
 

@@ -27,7 +27,7 @@ Tests exist to **reduce defects** and let you change code with confidence — no
   rather than calling `Date.today()` / `Datetime.now()` directly in logic under test.
 - **Self-validating** – clear pass/fail via assertions; no manual log reading.
 - **Timely** – written alongside the code (ideally test-first — see
-  `salesforce-tdd-workflow`).
+  [`salesforce-tdd-workflow`](../salesforce-tdd-workflow/SKILL.md)).
 
 ## Apex essentials
 

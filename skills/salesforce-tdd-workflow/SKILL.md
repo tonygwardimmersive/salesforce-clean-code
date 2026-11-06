@@ -8,7 +8,7 @@ metadata:
 
 # TDD for Salesforce
 
-This skill is about *process* — the order in which you write code and tests, what test to write next, and when to stop. Test-class mechanics live in `salesforce-writing-tests`; code quality lives in `clean-salesforce-functions` and `clean-apex-error-handling`. This is the loop that ties them together.
+This skill is about *process* — the order in which you write code and tests, what test to write next, and when to stop. Test-class mechanics live in [`salesforce-writing-tests`](../salesforce-writing-tests/SKILL.md); code quality lives in [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md) and [`clean-apex-error-handling`](../clean-apex-error-handling/SKILL.md). This is the loop that ties them together.
 
 **The single rule everything else serves: write no production code without a failing test.**
 
@@ -37,7 +37,7 @@ In Apex: a test that references a class or method that does not yet exist is a c
 - Commit whatever design sins you must to get green. This is allowed *because* the next phase cleans them up.
 
 ### REFACTOR — make it the simplest design that passes
-- With a green bar protecting you, remove the sins. Apply the four rules of simple design (below) and the `clean-salesforce-functions` / `clean-apex-error-handling` rules.
+- With a green bar protecting you, remove the sins. Apply the four rules of simple design (below) and the [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md) / [`clean-apex-error-handling`](../clean-apex-error-handling/SKILL.md) rules.
 - Run the tests after every change. Refactoring with a red bar is just editing.
 
 > Run the full test suite after every green and every refactor.
@@ -132,7 +132,7 @@ Name the behaviour, not the method. A test list should read as a specification.
 - Group tests by the *scenario* they describe, not the method they call
 - `@TestSetup` for shared ARRANGE so each test stays focused on what's unique to it
 
-See `salesforce-tests-as-specification` for how names form a living spec across a full rule set.
+See [`salesforce-tests-as-specification`](../salesforce-tests-as-specification/SKILL.md) for how names form a living spec across a full rule set.
 
 ---
 
@@ -153,7 +153,7 @@ See `salesforce-tests-as-specification` for how names form a living spec across 
 When refactoring, aim for code that, in priority order:
 
 1. **Passes all its tests.** Correctness first.
-2. **Communicates intent.** Reveals what it does to the next reader (see `salesforce-naming-things`).
+2. **Communicates intent.** Reveals what it does to the next reader (see [`salesforce-naming-things`](../salesforce-naming-things/SKILL.md)).
 3. **Expresses every concept once and only once.** No duplication of logic, SOQL, or rules.
 4. **Contains nothing extra.** No speculative generality, no dead code, no unused parameters.
 

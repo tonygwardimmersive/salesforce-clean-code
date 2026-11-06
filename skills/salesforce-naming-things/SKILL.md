@@ -104,7 +104,7 @@ A test name should read as a sentence describing one behaviour. A failing test m
 @isTest static void leapYearTest() { ... }
 ```
 
-See `salesforce-tests-as-specification` for how these names form a living spec.
+See [`salesforce-tests-as-specification`](../salesforce-tests-as-specification/SKILL.md) for how these names form a living spec.
 
 ---
 

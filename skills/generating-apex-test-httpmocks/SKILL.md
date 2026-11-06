@@ -254,7 +254,7 @@ Match the API version of the class under test. Default to `66.0`.
 
 ## Relationship to Base Skill
 
-This skill **extends** `salesforce-writing-tests`. All base skill rules apply:
+This skill **extends** [`salesforce-writing-tests`](../salesforce-writing-tests/SKILL.md). All base skill rules apply:
 
 - `Assert` class only
 - Given/When/Then structure

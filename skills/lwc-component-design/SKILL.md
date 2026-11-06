@@ -8,7 +8,7 @@ metadata:
 
 # LWC Component Design
 
-Lightning Web Components reward code written *with the grain* of the framework: data flows down through properties, events flow up, the engine re-renders from observed state, and behaviour is assembled from small components rather than inherited. Most LWC pain — stale renders, untestable blobs, tangled parent/child coupling — comes from fighting that grain. This skill is about component-level design decisions; for the structure of the functions *inside* a component, defer to `clean-salesforce-functions`, and for naming to `salesforce-naming-things`.
+Lightning Web Components reward code written *with the grain* of the framework: data flows down through properties, events flow up, the engine re-renders from observed state, and behaviour is assembled from small components rather than inherited. Most LWC pain — stale renders, untestable blobs, tangled parent/child coupling — comes from fighting that grain. This skill is about component-level design decisions; for the structure of the functions *inside* a component, defer to [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md), and for naming to [`salesforce-naming-things`](../salesforce-naming-things/SKILL.md).
 
 ---
 
@@ -20,7 +20,7 @@ A component's `@api` properties and methods are its public surface; everything e
 
 - **Inputs are `@api` properties; internal working state is plain fields.** Don't expose state the parent has no business setting.
 - **Never mutate an `@api` property from inside the component.** It is owned upstream. Derive from it (a getter) or copy it into private state if you must change it.
-- **A growing list of `@api` boolean flags that drive a `switch` is a smell** — that's a flag argument at the component boundary (`clean-salesforce-functions`, `salesforce-design-patterns`). Prefer a single `variant`/`mode` string mapped through a config, or separate components.
+- **A growing list of `@api` boolean flags that drive a `switch` is a smell** — that's a flag argument at the component boundary ([`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md), [`salesforce-design-patterns`](../salesforce-design-patterns/SKILL.md)). Prefer a single `variant`/`mode` string mapped through a config, or separate components.
 
 ```js
 // Bad — mutating the input the parent owns
@@ -41,7 +41,7 @@ get sortedRecords() {
 The engine re-renders when an observed field is **reassigned**. Mutating inside an object or array the field already points to may not be observed. Fields holding objects/arrays need `@track` (or a fresh reassignment) for nested changes to render.
 
 - **Replace, don't poke.** `this.items = [...this.items, newItem]` re-renders; `this.items.push(newItem)` may not.
-- **Don't store derived state.** Computing a value into a field means you must remember to recompute it whenever its inputs change — a temporal-coupling bug factory. Use a **getter** so it's always current. Getters are re-evaluated each render, so keep them cheap and **pure** (no mutation, no Apex calls — `clean-salesforce-functions` CQS).
+- **Don't store derived state.** Computing a value into a field means you must remember to recompute it whenever its inputs change — a temporal-coupling bug factory. Use a **getter** so it's always current. Getters are re-evaluated each render, so keep them cheap and **pure** (no mutation, no Apex calls — [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md) CQS).
 
 ```js
 // Bad — derived state goes stale when firstName/lastName change
@@ -71,7 +71,7 @@ get fullName() {
 
 ### 5. Data down, events up — and never reach across the boundary
 
-Parents pass **data down** through properties and issue commands through `@api` methods. Children notify **up** by dispatching `CustomEvent`. Neither side reaches into the other's internals (`salesforce-law-of-demeter`).
+Parents pass **data down** through properties and issue commands through `@api` methods. Children notify **up** by dispatching `CustomEvent`. Neither side reaches into the other's internals ([`salesforce-law-of-demeter`](../salesforce-law-of-demeter/SKILL.md)).
 
 - **Parent → child:** set properties; call `child.refresh()` via an `@api` method for imperative commands.
 - **Child → parent:** `this.dispatchEvent(new CustomEvent('selectrecord', { detail: { recordId } }))`. Lowercase, no spaces; carry data in `detail`.
@@ -87,7 +87,7 @@ handleSelect() {
 
 ### 6. Compose with child components and slots; split when a component does too much
 
-One reason to change per component (the SRP shape from `salesforce-solid-design`, applied to UI). When a component juggles unrelated concerns — fetching, a list, a form, and a modal — split it and compose. Use `<slot>` to let parents inject markup into a reusable shell rather than baking every variation in (`salesforce-design-patterns`, composition over inheritance — LWC has no useful component inheritance).
+One reason to change per component (the SRP shape from [`salesforce-solid-design`](../salesforce-solid-design/SKILL.md), applied to UI). When a component juggles unrelated concerns — fetching, a list, a form, and a modal — split it and compose. Use `<slot>` to let parents inject markup into a reusable shell rather than baking every variation in ([`salesforce-design-patterns`](../salesforce-design-patterns/SKILL.md), composition over inheritance — LWC has no useful component inheritance).
 
 Signs a component should be split:
 - The JS file has several unrelated `@wire`s / data sources.
@@ -108,7 +108,7 @@ A component orchestrates UI; it should not own business rules. Push reusable, te
 - **Reaching into a child** via `querySelector(...).privateThing` instead of props-down/events-up.
 - **Imperative Apex inside a getter** (fires every render) — and conversely **`@wire` throttled by flags** when the call is really event-driven.
 - **God component**: one `.js` with many data sources and flag-toggled template regions.
-- **Magic strings** for event names, picklist values, and channels duplicated across components (`salesforce-primitive-obsession` — hoist to a constants module).
+- **Magic strings** for event names, picklist values, and channels duplicated across components ([`salesforce-primitive-obsession`](../salesforce-primitive-obsession/SKILL.md) — hoist to a constants module).
 - **Business logic in the component** that can't be tested without rendering.
 
 ---

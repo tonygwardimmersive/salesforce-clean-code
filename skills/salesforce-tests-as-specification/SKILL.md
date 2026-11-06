@@ -71,7 +71,7 @@ Make the three phases visible (a.k.a. Arrange–Act–Assert):
 - **One reason to fail per test.** Multiple unrelated asserts hide which rule broke.
 - **Cover the boundaries the spec implies** — 2000 vs 1900 vs 2100 are the interesting cases, not
   three random leap years.
-- **Write the failing test first** (see `salesforce-tdd-workflow`) so each rule is proven to be
+- **Write the failing test first** (see [`salesforce-tdd-workflow`](../salesforce-tdd-workflow/SKILL.md)) so each rule is proven to be
   enforced by code, not assumed.
 - Works the same in LWC Jest: `it('marks years divisible by 400 as leap years', ...)`.
 

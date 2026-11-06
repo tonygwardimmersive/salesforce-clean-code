@@ -8,9 +8,9 @@ metadata:
 
 # Salesforce SOLID Design
 
-SOLID is five class- and module-level design principles. Where `clean-salesforce-functions` keeps a single method honest, SOLID keeps the *boundaries between classes* honest: who owns what, what depends on what, and what you can change without a ripple. In Apex the payoff is concrete — code that obeys DIP can be unit-tested without a single SOQL query or DML statement, which is the difference between a 2-second test run and a slow, fragile one.
+SOLID is five class- and module-level design principles. Where [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md) keeps a single method honest, SOLID keeps the *boundaries between classes* honest: who owns what, what depends on what, and what you can change without a ripple. In Apex the payoff is concrete — code that obeys DIP can be unit-tested without a single SOQL query or DML statement, which is the difference between a 2-second test run and a slow, fragile one.
 
-The principles are a lens, not a quota. Apply them where a class is changing for several reasons, where a `switch` keeps growing, or where a test forces you to insert records just to exercise logic. Don't manufacture interfaces for classes that have one implementation and always will (`salesforce-connascence`, `reviewing-apex` — speculative generality is a smell).
+The principles are a lens, not a quota. Apply them where a class is changing for several reasons, where a `switch` keeps growing, or where a test forces you to insert records just to exercise logic. Don't manufacture interfaces for classes that have one implementation and always will ([`salesforce-connascence`](../salesforce-connascence/SKILL.md), [`reviewing-apex`](../reviewing-apex/SKILL.md) — speculative generality is a smell).
 
 ---
 
@@ -72,7 +72,7 @@ public class ShippingCalculator {
 }
 ```
 
-Pair this with **Custom Metadata Types** to map the picklist value to the Apex class name (`Type.forName(...)`), so admins extend behaviour by adding a CMDT row — no deploy. Don't reach for this until the second or third variant: the first `if` is not a strategy pattern (`clean-salesforce-functions` DRY-after-Rule-of-Three).
+Pair this with **Custom Metadata Types** to map the picklist value to the Apex class name (`Type.forName(...)`), so admins extend behaviour by adding a CMDT row — no deploy. Don't reach for this until the second or third variant: the first `if` is not a strategy pattern ([`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md) DRY-after-Rule-of-Three).
 
 ### 3. LSP — Liskov Substitution
 
@@ -141,7 +141,7 @@ public class RenewalService {
 }
 ```
 
-In the test, pass a fake `OpportunitySelector` that returns an in-memory list — the policy is exercised with **zero DML and zero SOQL**, fast and deterministic. The same shape applies to callouts (inject an `HttpExecutor`) and to `@AuraEnabled` controllers (delegate to an injected service). Apex also supports `Test.createStub()` with `StubProvider` for generating these doubles. For the callout-specific mocking pattern see `generating-apex-test-httpmocks`; for the coupling rationale, depending on a *name* (the interface) instead of an *implementation* is connascence reduction — `salesforce-connascence`.
+In the test, pass a fake `OpportunitySelector` that returns an in-memory list — the policy is exercised with **zero DML and zero SOQL**, fast and deterministic. The same shape applies to callouts (inject an `HttpExecutor`) and to `@AuraEnabled` controllers (delegate to an injected service). Apex also supports `Test.createStub()` with `StubProvider` for generating these doubles. For the callout-specific mocking pattern see [`generating-apex-test-httpmocks`](../generating-apex-test-httpmocks/SKILL.md); for the coupling rationale, depending on a *name* (the interface) instead of an *implementation* is connascence reduction — [`salesforce-connascence`](../salesforce-connascence/SKILL.md).
 
 ---
 

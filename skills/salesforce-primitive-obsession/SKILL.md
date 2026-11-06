@@ -12,7 +12,7 @@ Primitive obsession is using a `String`, `Decimal`, `Id`, or `Boolean` to repres
 
 This applies to LWC JavaScript too, though the idiom differs — JS value objects are small classes or frozen factory objects, and the highest-value LWC move is usually replacing scattered magic picklist/status strings with shared, named constants. The Apex examples carry the principle; the **LWC (JavaScript) Notes** section translates it.
 
-This is the same problem `salesforce-connascence` calls **connascence of meaning** — every place that knows `'Active'` is the live status, or that a 9-char string is a country code, is coupled by a shared convention. Wrapping the concept converts it to the far weaker **connascence of name** (everyone just depends on the type).
+This is the same problem [`salesforce-connascence`](../salesforce-connascence/SKILL.md) calls **connascence of meaning** — every place that knows `'Active'` is the live status, or that a 9-char string is a country code, is coupled by a shared convention. Wrapping the concept converts it to the far weaker **connascence of name** (everyone just depends on the type).
 
 ---
 
@@ -86,7 +86,7 @@ Immutability buys you: safe sharing (no caller can corrupt your copy), easy reas
 
 ### 3. Attract behaviour to the object
 
-Once a concept has a type, move the logic that operates on it *onto* the type. This is where primitive obsession meets **Tell, Don't Ask** (`salesforce-law-of-demeter`) — instead of asking for the raw value and deciding outside, tell the object to do the work.
+Once a concept has a type, move the logic that operates on it *onto* the type. This is where primitive obsession meets **Tell, Don't Ask** ([`salesforce-law-of-demeter`](../salesforce-law-of-demeter/SKILL.md)) — instead of asking for the raw value and deciding outside, tell the object to do the work.
 
 ```apex
 // Bad — logic about percentages lives on every caller
@@ -106,7 +106,7 @@ public class Percentage {
 
 ### 4. Group primitives that travel together
 
-When the same cluster of primitives is passed around as a set — street, city, postcode, country — that clump *is* a concept. Make it one. (This is the argument-object move from `clean-salesforce-functions`, applied to data that recurs across the codebase, not just one signature.)
+When the same cluster of primitives is passed around as a set — street, city, postcode, country — that clump *is* a concept. Make it one. (This is the argument-object move from [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md), applied to data that recurs across the codebase, not just one signature.)
 
 ```apex
 // Bad — a data clump passed limb by limb
@@ -127,7 +127,7 @@ createShipment(Address shipTo) { ... }
 Don't wrap for the sake of it. A raw primitive is correct when:
 - It has no rules and no behaviour of its own — a free-text note, a row counter, a loop index.
 - It is genuinely a number or string at the boundary (a log message, a raw HTTP body) with no domain identity.
-- The wrapper would only ever hold the value and forward it — that is ceremony, not a value object (`reviewing-apex` speculative generality).
+- The wrapper would only ever hold the value and forward it — that is ceremony, not a value object ([`reviewing-apex`](../reviewing-apex/SKILL.md) speculative generality).
 
 The trigger is *meaning + rules or behaviour*, not merely "it's a primitive."
 
@@ -165,8 +165,8 @@ export function money(amount, currency) {
 }
 ```
 
-- **Attract behaviour, don't smear it.** Percentage/discount/formatting math repeated across getters and handlers belongs on the value object or in its module — the JS form of Tell, Don't Ask (`salesforce-law-of-demeter`).
-- **Group data clumps into one object.** The same cluster of fields passed limb-by-limb (street/city/postcode/country, or four positional args) should become one `address` object — the argument-object move from `clean-salesforce-functions`, and idiomatic as a destructured options object in JS.
+- **Attract behaviour, don't smear it.** Percentage/discount/formatting math repeated across getters and handlers belongs on the value object or in its module — the JS form of Tell, Don't Ask ([`salesforce-law-of-demeter`](../salesforce-law-of-demeter/SKILL.md)).
+- **Group data clumps into one object.** The same cluster of fields passed limb-by-limb (street/city/postcode/country, or four positional args) should become one `address` object — the argument-object move from [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md), and idiomatic as a destructured options object in JS.
 - **Don't over-wrap.** A label, a CSS class string, a loop index, or a raw value passed straight to an `@AuraEnabled` call has no rules — leave it primitive. The trigger is *meaning + rules or behaviour*, not "it's a string."
 
 ---

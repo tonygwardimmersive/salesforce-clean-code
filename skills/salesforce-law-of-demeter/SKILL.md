@@ -10,7 +10,7 @@ metadata:
 
 The Law of Demeter — *"don't talk to strangers"* — says a method should only call methods on: itself, its own fields, its parameters, and objects it creates. It should **not** reach *through* one object to get at another and call methods on that. The everyday symptom is the **train wreck**: `order.getCustomer().getAddress().getCountry().getCode()`. Each `.` past the first couples the caller to a structure it has no business knowing.
 
-Its behavioural twin is **Tell, Don't Ask**: don't pull state out of an object to make a decision the object is better placed to make — *tell* it to act. Both push behaviour toward the data it operates on, which is exactly where `salesforce-primitive-obsession` wants it too.
+Its behavioural twin is **Tell, Don't Ask**: don't pull state out of an object to make a decision the object is better placed to make — *tell* it to act. Both push behaviour toward the data it operates on, which is exactly where [`salesforce-primitive-obsession`](../salesforce-primitive-obsession/SKILL.md) wants it too.
 
 The Apex examples below carry the principle; the **LWC (JavaScript) Notes** section translates it to component code, where the same train wreck appears in templates and `@wire` traversal.
 
@@ -19,8 +19,8 @@ The Apex examples below carry the principle; the **LWC (JavaScript) Notes** sect
 ## Why it bites in Apex
 
 - **Relationship traversal is a train wreck generator.** `opp.Account.Owner.Manager.Name` couples the caller to four objects and the entire relationship path between them; reparent or restructure any link and every such chain breaks — and the compiler won't always warn you.
-- **Each extra `.` multiplies connascence.** A chain spreads *connascence of name and type* across every intermediate object (`salesforce-connascence`); a change to any hop ripples to the caller. One dot per concept keeps that ripple short.
-- **Ask-then-decide scatters policy.** Logic that should live on a class ends up in callers and services that interrogate it, producing the anemic-object / feature-envy smell `reviewing-apex` flags.
+- **Each extra `.` multiplies connascence.** A chain spreads *connascence of name and type* across every intermediate object ([`salesforce-connascence`](../salesforce-connascence/SKILL.md)); a change to any hop ripples to the caller. One dot per concept keeps that ripple short.
+- **Ask-then-decide scatters policy.** Logic that should live on a class ends up in callers and services that interrogate it, producing the anemic-object / feature-envy smell [`reviewing-apex`](../reviewing-apex/SKILL.md) flags.
 
 A clarification specific to Apex: a **single** SObject query that *projects* related fields (`SELECT Account.Owner.Name FROM Opportunity`) is a legitimate, bulk-friendly query — that's the database doing a join, not your Apex walking objects. Demeter is about **chained method/relationship calls in code paths and logic**, not about which fields one SOQL statement selects. The smell is traversal *threaded through business logic*, especially repeated per record.
 
@@ -71,7 +71,7 @@ This keeps related data and the rules about it together (high cohesion), and it 
 
 ### 3. Distinguish objects from data structures
 
-Tell-Don't-Ask applies to **objects** (behaviour-rich, hide their data). It does *not* apply to genuine **data structures / DTOs** — SObjects, wrapper records, `@AuraEnabled` response shapes — whose whole purpose is to expose fields. Reading `account.AnnualRevenue` is fine; an SObject is a data structure. The smell is *asking a behaviour-rich object for its internals to make its decision for it*. Don't add ceremony to bags of data, and don't let real domain objects degrade into bags of data (`reviewing-apex` — anemic domain model).
+Tell-Don't-Ask applies to **objects** (behaviour-rich, hide their data). It does *not* apply to genuine **data structures / DTOs** — SObjects, wrapper records, `@AuraEnabled` response shapes — whose whole purpose is to expose fields. Reading `account.AnnualRevenue` is fine; an SObject is a data structure. The smell is *asking a behaviour-rich object for its internals to make its decision for it*. Don't add ceremony to bags of data, and don't let real domain objects degrade into bags of data ([`reviewing-apex`](../reviewing-apex/SKILL.md) — anemic domain model).
 
 ### 4. Where the law genuinely bends
 
@@ -112,7 +112,7 @@ The getter still walks the path, but it does so in **one place the component own
 
 - **Wrap deep relationship logic on a domain class.** If business rules repeatedly walk `Opp.Account.Owner...`, add an `OpportunityModel`/domain wrapper exposing `isOwnedBySenior()` so the traversal lives in one place and trigger/service code tells, not walks.
 - **Query the path once, pass the answer.** Project the related fields you need in a single bulk SOQL, then have objects expose intent-revealing methods over that data — never re-traverse per record in a loop (governor limits *and* Demeter).
-- **Behaviour belongs with the value.** A getter chain that ends in a comparison (`...getCountry().getCode() == 'GB'`) usually means the concept (`Country`) should own that question — combine with `salesforce-primitive-obsession` to give it a home.
+- **Behaviour belongs with the value.** A getter chain that ends in a comparison (`...getCountry().getCode() == 'GB'`) usually means the concept (`Country`) should own that question — combine with [`salesforce-primitive-obsession`](../salesforce-primitive-obsession/SKILL.md) to give it a home.
 - **SObjects stay data structures.** Don't wrap every SObject field access; do consolidate the *decisions* made from those fields onto a domain class.
 
 ---

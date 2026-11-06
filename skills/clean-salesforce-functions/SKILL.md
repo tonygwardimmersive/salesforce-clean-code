@@ -73,7 +73,7 @@ public class TaskRequest {
 public void createTask(TaskRequest request) { ... }
 ```
 
-In coupling terms this trades *connascence of position* (callers must remember the argument order) for the much weaker *connascence of name* — see `salesforce-connascence`.
+In coupling terms this trades *connascence of position* (callers must remember the argument order) for the much weaker *connascence of name* — see [`salesforce-connascence`](../salesforce-connascence/SKILL.md).
 
 ### 4. No flag arguments
 
@@ -131,7 +131,7 @@ Duplicated logic is a defect multiplier. Repeated SOQL field lists, repeated val
 
 ### 8. Prefer exceptions to error-code returns
 
-Returning status flags forces the caller to check immediately and clutters call sites. Throw instead. (Detailed handling structure is covered by `clean-apex-error-handling`.)
+Returning status flags forces the caller to check immediately and clutters call sites. Throw instead. (Detailed handling structure is covered by [`clean-apex-error-handling`](../clean-apex-error-handling/SKILL.md).)
 
 ---
 
@@ -160,7 +160,7 @@ matching(term) {
 ```
 
 - **No flag arguments — and no flag `@api` properties driving a `switch`.** `render(true)` and `<c-thing variant-flag>` that branches internally are the same smell. Split into intention-revealing methods (`showCompact()` / `showExpanded()`) or distinct, named public properties.
-- **Few parameters → an options object.** JS makes this idiomatic: `open({ recordId, mode, focusField })` beats four positional args, and a destructured options object documents itself at the call site (connascence of position → name; see `salesforce-connascence`).
+- **Few parameters → an options object.** JS makes this idiomatic: `open({ recordId, mode, focusField })` beats four positional args, and a destructured options object documents itself at the call site (connascence of position → name; see [`salesforce-connascence`](../salesforce-connascence/SKILL.md)).
 - **No side effects — beware the getter that mutates.** A reactive getter is read on every render; never let it mutate component state or fire imperative calls. Keep getters pure (Command-Query Separation), and put work that *changes* things in handlers or lifecycle hooks.
 
 ```js

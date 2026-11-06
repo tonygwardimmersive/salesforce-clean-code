@@ -87,7 +87,7 @@ For coupling findings, name the *kind* and rank by **strength × degree × local
 | Value (CoV) | Fields that must change together (date ranges, totals) scattered | Encapsulate the invariant in one place |
 | Identity (CoI) | Mutating a re-queried record instead of `Trigger.new` → silent lost update | Operate on the single persisted instance |
 
-**Two rules to apply:** strong connascence is only acceptable when it is *local* (within one short method) — flag it across class/integration boundaries; and collapse **high-degree** coupling (a value known in forty places) by routing everyone through one definition. The dynamic forms (CoE/CoTi/CoV/CoI) fail silently in production, so rank them above the static ones. For the full taxonomy and conversions, see `salesforce-connascence`.
+**Two rules to apply:** strong connascence is only acceptable when it is *local* (within one short method) — flag it across class/integration boundaries; and collapse **high-degree** coupling (a value known in forty places) by routing everyone through one definition. The dynamic forms (CoE/CoTi/CoV/CoI) fail silently in production, so rank them above the static ones. For the full taxonomy and conversions, see [`salesforce-connascence`](../salesforce-connascence/SKILL.md).
 
 ---
 
@@ -113,7 +113,7 @@ Methods should use the class's instance variables. When a subset of methods uses
 | G30 — Does more than one thing | Multiple levels of abstraction in one method |
 | G34 — Descends more than one level of abstraction | Mixing policy and mechanics |
 
-*(For fixes, defer to `clean-salesforce-functions`.)*
+*(For fixes, defer to [`clean-salesforce-functions`](../clean-salesforce-functions/SKILL.md).)*
 
 ---
 
@@ -149,7 +149,7 @@ Apply when reviewing `*Test` classes:
 - **C3 — Redundant comments** — restate the code; delete.
 - **Noise ApexDoc on private methods** — boilerplate that will go stale.
 
-*(For the full policy, defer to `salesforce-code-comments`.)*
+*(For the full policy, defer to [`salesforce-code-comments`](../salesforce-code-comments/SKILL.md).)*
 
 ---
 
