@@ -14,6 +14,59 @@ This repository is a Claude Code plugin and its own single-plugin marketplace
 /plugin install salesforce-clean-code@tonygward-salesforce
 ```
 
+In an interactive session, `/plugin install` asks which scope to install into. From
+the terminal, pass `--scope` (default `user`):
+
+| Scope | Who gets it | Saved in |
+|---|---|---|
+| `user` | Only you, in every project | `~/.claude/settings.json` |
+| `project` | Everyone who clones the repo | `.claude/settings.json` (commit it) |
+| `local` | Only you, only in this repo | `.claude/settings.local.json` (git-ignored) |
+
+**Per user** – available to you in every project:
+
+```bash
+claude plugin marketplace add tonygwardimmersive/salesforce-clean-code
+claude plugin install salesforce-clean-code@tonygward-salesforce
+```
+
+**Per project** – shared with your team. Run inside the project, then commit
+`.claude/settings.json`:
+
+```bash
+claude plugin marketplace add tonygwardimmersive/salesforce-clean-code --scope project
+claude plugin install salesforce-clean-code@tonygward-salesforce --scope project
+```
+
+Teammates are prompted to trust the marketplace and install the plugin when they
+open the project. You can also add the same settings by hand:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "tonygward-salesforce": {
+      "source": { "source": "github", "repo": "tonygwardimmersive/salesforce-clean-code" }
+    }
+  },
+  "enabledPlugins": {
+    "salesforce-clean-code@tonygward-salesforce": true
+  }
+}
+```
+
+**Local** – just you, just this project, without touching shared settings:
+
+```bash
+claude plugin marketplace add tonygwardimmersive/salesforce-clean-code --scope local
+claude plugin install salesforce-clean-code@tonygward-salesforce --scope local
+```
+
+To remove it, run `claude plugin uninstall salesforce-clean-code@tonygward-salesforce --scope <scope>`
+with the scope you installed into.
+
+If your organisation's marketplace already lists this plugin, skip the
+`marketplace add` step and install `salesforce-clean-code@<that-marketplace>`.
+
 ### Alternative: install with `npx skills`
 
 ```bash
