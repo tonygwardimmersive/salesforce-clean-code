@@ -1,6 +1,7 @@
 ---
 name: salesforce-tests-as-specification
 description: Write Salesforce tests that act as a living specification of behaviour (Apex and LWC). Use when turning requirements or business rules into tests, naming test methods, or structuring test classes around behaviour.
+disable-model-invocation: true
 ---
 
 # Tests as Specification

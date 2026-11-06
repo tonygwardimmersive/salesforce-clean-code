@@ -1,6 +1,7 @@
 ---
 name: salesforce-law-of-demeter
-description: "Apply the Law of Demeter and Tell-Don't-Ask to Salesforce code — Apex and LWC JavaScript. Don't reach through objects, and command collaborators instead of querying their internals to decide. Use this skill when code chains accessors across several objects (a.b.c.d), when SObject relationship traversal walks deep into related records, when an LWC reaches deep into @wire data or another component's internals, when a method pulls data out of an object only to make a decision the object could make itself, or when you want to reduce the ripple from a structural change: talk only to immediate collaborators, and tell objects what to do rather than asking for their state. Triggers on 'train wreck', 'this getter chain is fragile', 'why did changing X break this', 'reduce coupling to internals', 'move this logic onto the object', or 'tell don't ask'. Pairs with salesforce-connascence (chains multiply connascence) and salesforce-primitive-obsession (give behaviour a home). Do NOT use for general smell review (reviewing-apex) or method-internal structure (clean-salesforce-functions)."
+description: "Apply the Law of Demeter and Tell-Don't-Ask to Apex and LWC JavaScript. Use when code chains accessors (a.b.c.d), walks deep SObject relationships or @wire data, reaches into another component's internals, or pulls state out of an object to make a decision the object should make itself. Talk only to immediate collaborators; tell, don't ask. Not for general smell review (reviewing-apex)."
+disable-model-invocation: true
 metadata:
   version: "2.0"
 ---

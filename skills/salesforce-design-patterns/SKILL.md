@@ -1,6 +1,7 @@
 ---
 name: salesforce-design-patterns
-description: "Apply the Decorator and Strategy design patterns to Salesforce code — Apex and LWC JavaScript — and prefer composition over inheritance. Use this skill when behaviour needs to vary or stack at run time, when a subclass hierarchy is exploding to cover combinations, when an if/switch on a type keeps reopening, when an LWC grows variant flags or a parallel component per option, or when you want to add behaviour to an object without editing it: wrap with a Decorator, swap with a Strategy, compose rather than inherit. Triggers on 'add behaviour without changing the class', 'too many subclasses', 'too many component variants', 'vary this at run time', 'select behaviour by config/picklist', 'should this be inheritance', or 'apply a pattern here'. Realises the Open/Closed Principle from salesforce-solid-design and pairs with salesforce-connascence. Do NOT force a pattern where a single method suffices, and do NOT use for method-internal structure (clean-salesforce-functions) or general smell review (reviewing-apex)."
+description: "Apply Decorator and Strategy to Apex and LWC JavaScript, preferring composition over inheritance. Use when behaviour must vary or stack at run time, a subclass tree or set of component variants is exploding, or a type/picklist switch keeps reopening. Don't force a pattern where a single method will do. Not for method structure (clean-salesforce-functions)."
+disable-model-invocation: true
 metadata:
   version: "2.0"
 ---

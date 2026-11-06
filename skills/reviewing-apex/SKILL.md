@@ -1,6 +1,7 @@
 ---
 name: reviewing-apex
 description: "Review existing Apex against Clean Code smells and heuristics. Use this skill when asked to review, critique, assess, or find problems in Apex code, or to suggest refactors: detects duplication, dead code, magic numbers (hardcoded IDs/picklist values), feature envy, Law-of-Demeter train wrecks, God classes, oversized methods, weak tests, and naming smells. Triggers on 'review this Apex', 'code review', 'what's wrong with this class', 'refactor suggestions', or a pull-request-style assessment. Do NOT use when generating new code from scratch — use salesforce-naming-things, clean-salesforce-functions, salesforce-code-comments, or clean-apex-error-handling for authoring."
+disable-model-invocation: true
 metadata:
   version: "1.0"
 ---

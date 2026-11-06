@@ -1,6 +1,7 @@
 ---
 name: salesforce-solid-design
-description: "Apply the SOLID object-oriented design principles to Apex classes and interfaces. Use this skill when designing class responsibilities, introducing or shaping interfaces and abstract/virtual classes, deciding what depends on what, or refactoring a class that has grown to do too much: keep one reason to change per class (SRP), extend by adding code not editing it (OCP), keep subclasses substitutable (LSP), keep interfaces narrow (ISP), and depend on abstractions you can inject and mock (DIP). Triggers on 'design this class', 'should this be an interface', 'how do I make this testable / mockable', 'this class does too much', 'extend without modifying', or layering trigger/service/selector/domain code. Pairs with clean-salesforce-functions (method-level structure), salesforce-connascence (coupling vocabulary), and reviewing-apex (catching violations in existing code). Do NOT use for method-internal structure (clean-salesforce-functions), naming (salesforce-naming-things), or error-handling structure (clean-apex-error-handling)."
+description: "Apply SOLID to Apex classes and interfaces: one reason to change (SRP), extend without editing (OCP), substitutable subclasses (LSP), narrow interfaces (ISP), and injectable, mockable abstractions (DIP). Use when designing class responsibilities, shaping interfaces, making code testable, layering trigger/service/selector/domain code, or splitting a class that does too much. Not for method structure (clean-salesforce-functions)."
+disable-model-invocation: true
 metadata:
   version: "1.0"
 ---

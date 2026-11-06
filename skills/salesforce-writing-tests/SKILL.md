@@ -1,6 +1,7 @@
 ---
 name: salesforce-writing-tests
 description: How to write high-quality Salesforce tests (Apex test classes and LWC Jest). Use when creating, reviewing, or improving test code, or when discussing code coverage, assertions, test data, mocking, or bulk testing in Salesforce.
+disable-model-invocation: true
 ---
 
 # Writing Good Salesforce Tests

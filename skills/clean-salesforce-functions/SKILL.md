@@ -1,6 +1,7 @@
 ---
 name: clean-salesforce-functions
 description: "Apply Clean Code function principles to Salesforce code — Apex methods and LWC JavaScript. Use this skill when writing or refactoring Apex methods, trigger handlers, service-layer logic, or LWC component methods, handlers, and helpers: keep functions small and doing one thing, one level of abstraction per function, no flag (Boolean) arguments, few parameters (prefer an argument/options object), no side effects, and command-query separation. Triggers when generating Apex methods or LWC JS functions, when a function grows long or takes many arguments, or when a user asks to refactor or simplify Apex or LWC logic. Do NOT use for naming-only changes (salesforce-naming-things) or error-handling structure (clean-apex-error-handling)."
+disable-model-invocation: true
 metadata:
   version: "2.0"
 ---

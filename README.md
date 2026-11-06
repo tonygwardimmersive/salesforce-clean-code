@@ -25,7 +25,7 @@ interactively. Without Claude Code plugins, use `npx skills add tonygwardimmersi
 
 ## Usage
 
-Describe the task and Claude picks the right skill, or invoke one directly, e.g.
+Skills are manual-only: Claude won't pick them on its own, so invoke one by name, e.g.
 `/salesforce-clean-code:reviewing-apex`. Skills installed with `npx skills` have no
 prefix (`/reviewing-apex`).
 

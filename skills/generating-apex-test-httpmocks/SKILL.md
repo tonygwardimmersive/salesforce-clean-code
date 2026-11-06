@@ -1,6 +1,7 @@
 ---
 name: generating-apex-test-httpmocks
 description: "Generate Apex test classes for HTTP callout code using the self-shunt pattern. The test class itself implements HttpCalloutMock, capturing every outbound request in a private list and injecting status code and response body via constructor. Use this skill when writing tests for any Apex class that makes HTTP callouts (REST, SOAP, named credentials), when you need to verify the exact requests that were sent (endpoint, method, headers, body), or when you need to simulate success, failure, and error HTTP responses. Triggers on classes that call Http.send(), HttpRequest, or HttpCalloutMock. Do NOT use for non-callout tests – use the salesforce-writing-tests skill instead."
+disable-model-invocation: true
 metadata:
   version: "1.1"
 ---

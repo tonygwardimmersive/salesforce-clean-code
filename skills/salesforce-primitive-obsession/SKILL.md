@@ -1,6 +1,7 @@
 ---
 name: salesforce-primitive-obsession
-description: "Replace raw primitives that stand in for domain concepts with small, immutable value objects — in Apex classes and LWC JavaScript. Use this skill when an Id, String, Decimal, or Boolean (or a JS string/number) is carrying domain meaning (a record Id, a picklist value, an email, a money amount, a percentage), when the same primitive-plus-validation appears in several places, or when related primitives always travel together: wrap the concept in a class/module that validates on construction, is immutable, and attracts the behaviour that belongs to it. Triggers on 'this String is really an X', 'magic picklist value', 'validate this in one place', 'these fields always go together', 'make this immutable', or 'stop passing raw Ids around'. Ties to salesforce-connascence (primitive obsession is connascence of meaning) and clean-salesforce-functions (argument objects, value objects). Do NOT use for naming-only changes (salesforce-naming-things) or method structure (clean-salesforce-functions)."
+description: "Replace primitives that stand in for domain concepts (record Ids, picklist values, emails, money, percentages) with small immutable value objects in Apex or LWC JavaScript that validate on construction and own their behaviour. Use when the same primitive-plus-validation repeats, related values always travel together, or raw Ids and magic strings are passed around. Not for naming-only changes (salesforce-naming-things)."
+disable-model-invocation: true
 metadata:
   version: "2.0"
 ---
