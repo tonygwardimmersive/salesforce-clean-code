@@ -64,20 +64,20 @@ A value object is defined by its value, so its value must not change after const
 ```apex
 public class Money {
     public final Decimal amount;
-    public final String currency;
-    public Money(Decimal amount, String currency) {
-        if (amount == null || currency == null) {
-            throw new IllegalArgumentException('amount and currency required');
+    public final String currencyCode;
+    public Money(Decimal amount, String currencyCode) {
+        if (amount == null || currencyCode == null) {
+            throw new IllegalArgumentException('amount and currency code required');
         }
         this.amount = amount;
-        this.currency = currency;
+        this.currencyCode = currencyCode;
     }
     // Operations return new instances — never mutate
     public Money plus(Money other) {
-        if (other.currency != this.currency) {
+        if (other.currencyCode != this.currencyCode) {
             throw new IllegalArgumentException('Currency mismatch');
         }
-        return new Money(this.amount + other.amount, this.currency);
+        return new Money(this.amount + other.amount, this.currencyCode);
     }
 }
 ```
