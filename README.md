@@ -1,34 +1,50 @@
-# Tony's Salesforce Skills
+# Salesforce Clean Code
 
-Public Salesforce AI skills for use with Claude Code and compatible skill runners.
+Clean code, TDD and design principles for Apex and LWC. Complements
+`salesforce-build-dev`: build-dev generates the code; clean-code guides how to write
+and review it well.
 
-## Installation
+## Install as a Claude Code plugin
+
+This repository is a Claude Code plugin and its own single-plugin marketplace
+(`tonygward-salesforce`):
+
+```
+/plugin marketplace add tonygwardimmersive/salesforce-clean-code
+/plugin install salesforce-clean-code@tonygward-salesforce
+```
+
+### Alternative: install with `npx skills`
 
 ```bash
-npx skills add tonygward/salesforce-skills --yes
+npx skills add tonygwardimmersive/salesforce-clean-code --yes
 ```
 
 ## Usage
 
-Once installed, invoke a skill by name in your Claude Code session:
+Installed as a plugin, each skill is namespaced under the plugin name. Invoke one
+directly, or just describe the task and Claude picks the matching skill:
 
 ```
-/salesforce-naming-things
-/salesforce-code-comments
-/salesforce-writing-tests
-/salesforce-tests-as-specification
-/salesforce-tdd-workflow
-/generating-apex-test-httpmocks
-/clean-salesforce-functions
-/clean-apex-error-handling
-/reviewing-apex
-/salesforce-connascence
-/salesforce-solid-design
-/salesforce-design-patterns
-/salesforce-primitive-obsession
-/salesforce-law-of-demeter
-/lwc-component-design
+/salesforce-clean-code:salesforce-naming-things
+/salesforce-clean-code:salesforce-code-comments
+/salesforce-clean-code:salesforce-writing-tests
+/salesforce-clean-code:salesforce-tests-as-specification
+/salesforce-clean-code:salesforce-tdd-workflow
+/salesforce-clean-code:generating-apex-test-httpmocks
+/salesforce-clean-code:clean-salesforce-functions
+/salesforce-clean-code:clean-apex-error-handling
+/salesforce-clean-code:reviewing-apex
+/salesforce-clean-code:salesforce-connascence
+/salesforce-clean-code:salesforce-solid-design
+/salesforce-clean-code:salesforce-design-patterns
+/salesforce-clean-code:salesforce-primitive-obsession
+/salesforce-clean-code:salesforce-law-of-demeter
+/salesforce-clean-code:lwc-component-design
 ```
+
+Installed with `npx skills`, the same skills are invoked without the prefix
+(for example `/reviewing-apex`).
 
 ## Skills
 
@@ -102,6 +118,52 @@ RED → GREEN → REFACTOR cycle at a time, to build test-driving muscle memory.
 The last two are Salesforce-shaped (usage-rated pricing, order fulfilment) and are the
 highest-value practice. See the [exercises README](skills/salesforce-tdd-workflow/exercises/README.md)
 for how to use them.
+
+## How this relates to the iMMERSIVE marketplace
+
+The iMMERSIVE marketplace's `salesforce-build-dev` and `salesforce-build-config`
+plugins **generate** code and metadata. `salesforce-clean-code` covers **how to write
+and review** that code well: naming, functions, error handling, tests, TDD, coupling
+and design. Use them together: generate with build-dev or build-config, then shape and
+review the result with clean-code.
+
+The closest neighbours, and how they differ:
+
+| This plugin | iMMERSIVE neighbour | Difference |
+|---|---|---|
+| `reviewing-apex` | `salesforce-practices-reviewer` (salesforce-design) | Clean Code smells and heuristics (duplication, God classes, magic numbers, Law of Demeter, test quality) versus Salesforce platform best-practice and standards review |
+| `salesforce-writing-tests`, `generating-apex-test-httpmocks` | `apex-test-class-creator` (salesforce-build-dev) | Principles and guidance for writing good tests (FIRST, one rule per test, bulk, self-shunt mocks) versus generating test classes |
+
+In short: this plugin is principles and review guidance; the iMMERSIVE neighbours
+are generation and platform-standards review.
+
+## Referencing from another marketplace
+
+Another marketplace can list this plugin with a single entry in its
+`.claude-plugin/marketplace.json` `plugins` array, without copying any files:
+
+```json
+{
+  "name": "salesforce-clean-code",
+  "source": {
+    "source": "github",
+    "repo": "tonygwardimmersive/salesforce-clean-code"
+  },
+  "description": "Clean code, TDD and design principles for Apex and LWC. Complements salesforce-build-dev: build-dev generates the code; clean-code guides how to write and review it well."
+}
+```
+
+To pin a release, add `ref` (a branch or tag) and/or `sha` (a full 40-character
+commit SHA) to the `source` object. When both are set, `sha` is checked out:
+
+```json
+"source": {
+  "source": "github",
+  "repo": "tonygwardimmersive/salesforce-clean-code",
+  "ref": "v1.0.0",
+  "sha": "<40-character commit sha>"
+}
+```
 
 ## Contributing
 

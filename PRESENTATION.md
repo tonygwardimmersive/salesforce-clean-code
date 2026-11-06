@@ -672,9 +672,9 @@ Everything in this talk is packaged as **15 skills** for Claude Code.
 # Get started
 
 ```bash
-npx skills add tonygward/salesforce-skills
+npx skills add tonygwardimmersive/salesforce-clean-code
 ```
 
-`github.com/tonygward/salesforce-skills`
+`github.com/tonygwardimmersive/salesforce-clean-code`
 
 **Questions?**

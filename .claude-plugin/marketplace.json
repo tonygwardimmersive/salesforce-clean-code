@@ -1,0 +1,15 @@
+{
+  "name": "tonygward-salesforce",
+  "description": "Tony Ward's Salesforce plugins for Claude Code.",
+  "owner": {
+    "name": "Tony Ward",
+    "email": "tony.ward@immersiveai.co.uk"
+  },
+  "plugins": [
+    {
+      "name": "salesforce-clean-code",
+      "source": "./",
+      "description": "Clean code, TDD and design principles for Apex and LWC. Complements salesforce-build-dev: build-dev generates the code; clean-code guides how to write and review it well."
+    }
+  ]
+}
